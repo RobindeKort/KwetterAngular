@@ -1,0 +1,17 @@
+<div *ngIf="selectedAccount">
+  <h2>{{selectedAccount.userName | uppercase}} Details</h2>
+  <div><span>id: </span>{{selectedAccount.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="selectedAccount.userName" placeholder="name">
+    </label>
+  </div>
+</div>
+<h2>My Accounts</h2>
+<ul class="accounts">
+  <li *ngFor="let account of accounts"
+      [class.selected]="account === selectedAccount"
+      (click)="onSelect(account)">
+    <span class="badge">{{account.id}}</span>{{account.userName}}
+  </li>
+</ul>
