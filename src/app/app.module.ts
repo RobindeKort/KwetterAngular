@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { AccountComponent } from './account/account.component';
 import { AccountService } from './service/account.service';
 import { AppRoutingModule } from './/app-routing.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccountComponent
+    AccountComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
