@@ -1,14 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
-import { AppComponent } from './app.component';
-import { AccountComponent } from './account/account.component';
-import { AccountService } from './service/account.service';
-import { AppRoutingModule } from './/app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
+import {AppComponent} from './app.component';
+import {AccountComponent} from './account/account.component';
+import {AccountService} from './_service/account.service';
+import {AppRoutingModule} from './/app-routing.module';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {LoginComponent} from './login/login.component';
+import {AuthenticationService} from './_service/authentication.service';
 
 
 @NgModule({
@@ -25,7 +26,11 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AccountService],
+  providers: [
+    AccountService,
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
