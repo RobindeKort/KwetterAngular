@@ -9,8 +9,13 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {
   }
 
-  login(formInput: string) {
-    return this.http.post<Account>(this.authUrl, {formInput}, {headers: {'Access-Control-Allow-Origin': '*'}});
+  login(username: string, password: string) {
+    const body = new URLSearchParams();
+    body.set('username', username);
+    body.set('password', password);
+    console.log(body.get('username'));
+    console.log(body.get('password'));
+    return this.http.post<Account>(this.authUrl, body.toString(), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
   }
 
 }
