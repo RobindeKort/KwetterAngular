@@ -15,7 +15,13 @@ export class AuthenticationService {
     body.set('password', password);
     console.log(body.get('username'));
     console.log(body.get('password'));
-    return this.http.post<Account>(this.authUrl, body.toString(), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+    return this.http.post<Account>(this.authUrl, body.toString(), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Access-Control-Allow-Origin': '*'
+      },
+      withCredentials: true
+    });
   }
 
 }
