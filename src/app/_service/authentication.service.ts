@@ -17,8 +17,7 @@ export class AuthenticationService {
     console.log(body.get('password'));
     return this.http.post<Account>(this.authUrl, body.toString(), {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Access-Control-Allow-Origin': '*'
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       withCredentials: true
     });

@@ -9,13 +9,13 @@ import {ACCOUNTS} from '../_domain/mock-accounts';
 @Injectable()
 export class AccountService {
 
-  private accountsUrl = 'http://localhost:8080/Kwetter/api/users/admin';
+  private accountsUrl = 'http://localhost:8080/Kwetter/api/users/admin/following';
 
   constructor(private http: HttpClient) {
   }
 
   getAccounts(): Observable<Account[]> {
     // return of(ACCOUNTS);
-    return this.http.get<Account[]>(this.accountsUrl);
+    return this.http.get<Account[]>(this.accountsUrl, { withCredentials: true });
   }
 }
