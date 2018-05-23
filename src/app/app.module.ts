@@ -3,6 +3,8 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
+import {CookieService} from 'angular2-cookie/services/cookies.service';
+
 import {AppComponent} from './app.component';
 import {AccountComponent} from './account/account.component';
 import {AccountService} from './_service/account.service';
@@ -27,6 +29,7 @@ import {AuthenticationService} from './_service/authentication.service';
     AppRoutingModule
   ],
   providers: [
+    CookieService,
     AccountService,
     AuthenticationService
   ],

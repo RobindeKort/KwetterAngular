@@ -3,5 +3,6 @@
   <a routerLink="/dashboard">Home</a>
   <a routerLink="/following">Following</a>
   <a routerLink="/login">Log In</a>
+  <a routerLink="/asdf" *ngIf="loggedIn">{{loggedInAccount.userName}}</a>
 </nav>
 <router-outlet></router-outlet>
