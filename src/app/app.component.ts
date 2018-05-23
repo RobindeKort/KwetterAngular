@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AccountService} from './_service/account.service';
 import {CookieService} from 'angular2-cookie/core';
 
+import {Account} from './_domain/account';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,24 +11,22 @@ import {CookieService} from 'angular2-cookie/core';
 })
 export class AppComponent implements OnInit {
   title: String = 'Kwetter';
-  loggedIn: boolean;
-  loggedInAccount: Account;
 
   constructor(private cookieService: CookieService, private accountService: AccountService) {
   }
 
   ngOnInit() {
-    this.getLoggedInAccount();
+    this.accountService.updateLoggedIn();
   }
 
-  getLoggedInAccount(): Account {
-    // const token: string = this.cookieService.get('access_token');
-    const token: string = localStorage.getItem('loggedInAccount');
-    console.log(token);
-    if (token !== null) {
-      this.loggedIn = true;
-      return this.loggedInAccount = JSON.parse(token);
+  isLoggedIn(): boolean {
+    if (this.accountService.loggedInAccount !== null) {
+      return true;
     }
-    this.loggedIn = false;
+    return false;
+  }
+
+  getLoggedIn(): Account {
+    return this.accountService.loggedInAccount;
   }
 }

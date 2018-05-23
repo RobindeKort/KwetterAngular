@@ -2,7 +2,8 @@
 <nav>
   <a routerLink="/dashboard">Home</a>
   <a routerLink="/following">Following</a>
-  <a routerLink="/login">Log In</a>
-  <a routerLink="/asdf" *ngIf="loggedIn">{{loggedInAccount.userName}}</a>
+  <a routerLink="/login" *ngIf="!isLoggedIn()">Log In</a>
+  <a routerLink="/user/{{getLoggedIn().userName}}" *ngIf="isLoggedIn()">{{getLoggedIn().userName}}</a>
+  <a routerLink="/logout" *ngIf="isLoggedIn()">Log Out</a>
 </nav>
 <router-outlet></router-outlet>

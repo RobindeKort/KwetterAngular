@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AuthenticationService} from '../_service/authentication.service';
 import {Router} from '@angular/router';
+import {AccountService} from '../_service/account.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private authService: AuthenticationService,
+              private accountService: AccountService,
               private router: Router) {
   }
 
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.get('username').value, this.loginForm.get('password').value)
       .subscribe(
         data => {
-          localStorage.setItem('loggedInAccount', JSON.stringify(data));
+          this.accountService.updateLoggedIn();
           console.log('User is logged in');
           this.router.navigateByUrl('/');
         },
