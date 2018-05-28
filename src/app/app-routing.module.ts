@@ -6,10 +6,10 @@ import {LoginComponent} from './login/login.component';
 import {LogoutComponent} from './logout/logout.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'following', component: AccountComponent},
-  {path: 'user/:userName', component: AccountComponent},
+  // {path: 'following', component: AccountComponent},
+  {path: 'users/:userName', component: AccountComponent},
   {path: 'login' , component: LoginComponent},
   {path: 'logout' , component: LogoutComponent}
 ];

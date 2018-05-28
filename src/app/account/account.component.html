@@ -1,17 +1,17 @@
-<div *ngIf="selectedAccount">
-  <h2>{{selectedAccount.userName | uppercase}} Details</h2>
-  <div><span>id: </span>{{selectedAccount.id}}</div>
+<div *ngIf="selectedKweet">
+  <h2>{{selectedKweet.datePosted | uppercase}} Details</h2>
+  <div><span>id: </span>{{selectedKweet.id}}</div>
   <div>
     <label>name:
-      <input [(ngModel)]="selectedAccount.userName" placeholder="name">
+      <input [(ngModel)]="selectedKweet.postedBy.displayName" placeholder="name">
     </label>
   </div>
 </div>
-<h2>My Accounts</h2>
-<ul class="accounts">
-  <li *ngFor="let account of accounts"
-      [class.selected]="account === selectedAccount"
-      (click)="onSelect(account)">
-    <span class="badge">{{account.id}}</span>{{account.userName}}
+<h2>{{userName}}'s Kweets</h2>
+<ul class="kweets">
+  <li *ngFor="let kweet of kweets"
+      [class.selected]="kweet === selectedKweet"
+      (click)="onSelect(kweet)">
+    <span class="badge">{{kweet.postedBy.id}}</span>{{kweet.body}}
   </li>
 </ul>

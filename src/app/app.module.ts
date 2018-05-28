@@ -12,7 +12,7 @@ import {AppRoutingModule} from './/app-routing.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {LoginComponent} from './login/login.component';
 import {AuthenticationService} from './_service/authentication.service';
-import { LogoutComponent } from './logout/logout.component';
+import {LogoutComponent} from './logout/logout.component';
 
 
 @NgModule({

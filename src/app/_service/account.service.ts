@@ -5,13 +5,14 @@ import {of} from 'rxjs/observable/of';
 
 import {Account} from '../_domain/account';
 import {ACCOUNTS} from '../_domain/mock-accounts';
+import {Kweet} from '../_domain/kweet';
 
 @Injectable()
 export class AccountService {
   loggedInAccount: Account = null;
 
   private loggedInUrl = 'http://localhost:8080/Kwetter/api/auth';
-  private accountsUrl = 'http://localhost:8080/Kwetter/api/users/admin/following';
+  private accountUrl = 'http://localhost:8080/Kwetter/api/users';
 
   constructor(private http: HttpClient) {
   }
@@ -28,8 +29,10 @@ export class AccountService {
       );
   }
 
-  getAccounts(): Observable<Account[]> {
+  getKweets(userName: string): Observable<Kweet[]> {
     // return of(ACCOUNTS);
-    return this.http.get<Account[]>(this.accountsUrl, {withCredentials: true});
+    const newUrl = this.accountUrl + '/' + userName + '/kweets';
+    // console.log(newUrl);
+    return this.http.get<Kweet[]>(newUrl, {withCredentials: true});
   }
 }
