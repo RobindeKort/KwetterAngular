@@ -1,4 +1,4 @@
-<div *ngIf="selectedKweet">
+<!--<div *ngIf="selectedKweet">
   <h2>{{selectedKweet.datePosted | uppercase}} Details</h2>
   <div><span>id: </span>{{selectedKweet.id}}</div>
   <div>
@@ -6,12 +6,12 @@
       <input [(ngModel)]="selectedKweet.postedBy.displayName" placeholder="name">
     </label>
   </div>
-</div>
+</div>-->
 <h2>{{userName}}'s Kweets</h2>
 <ul class="kweets">
   <li *ngFor="let kweet of kweets"
       [class.selected]="kweet === selectedKweet"
       (click)="onSelect(kweet)">
-    <span class="badge">{{kweet.postedBy.id}}</span>{{kweet.body}}
+    <span class="badge">{{kweet.datePosted}}</span>{{kweet.body}}
   </li>
 </ul>

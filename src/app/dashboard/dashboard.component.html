@@ -1,3 +1,8 @@
-<p>
-  dashboard works!
-</p>
+<h2>My Dashboard</h2>
+<ul class="kweets">
+  <li *ngFor="let kweet of kweets"
+      [class.selected]="kweet === selectedKweet"
+      (click)="onSelect(kweet)">
+    <span class="badge">{{kweet.datePosted}}</span>{{kweet.body}}
+  </li>
+</ul>

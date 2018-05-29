@@ -17,7 +17,6 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private accountService: AccountService) {
-
   }
 
   ngOnInit() {
@@ -40,7 +39,7 @@ export class AccountComponent implements OnInit, OnDestroy {
       .subscribe(kweets => {
         this.kweets = kweets;
         if (kweets === null) {
-
+          // TODO robkor: handle this
         }
       });
   }

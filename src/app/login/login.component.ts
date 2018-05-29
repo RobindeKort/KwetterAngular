@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         data => {
           this.accountService.updateLoggedIn();
           console.log('User is logged in');
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/dashboard');
         },
         error => {
           this.loading = false;
