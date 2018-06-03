@@ -12,14 +12,14 @@ import {Kweet} from '../_domain/kweet';
 export class AccountService {
   loggedInAccount: Account = null;
 
-  private loggedInUrl = 'http://localhost:8080/Kwetter/api/auth';
-  private accountUrl = 'http://localhost:8080/Kwetter/api/users';
+  private authUrl = 'http://localhost:8080/Kwetter/api/auth/';
+  private accountUrl = 'http://localhost:8080/Kwetter/api/users/';
 
   constructor(private http: HttpClient) {
   }
 
   private getLoggedInRequest(): Observable<Account> {
-    return this.http.get<Account>(this.loggedInUrl, {withCredentials: true});
+    return this.http.get<Account>(this.authUrl, {withCredentials: true});
   }
 
   updateLoggedIn(): void {
@@ -30,9 +30,21 @@ export class AccountService {
       );
   }
 
+  postKweet(kweetBody: string): Observable<Kweet> {
+    const body = new URLSearchParams();
+    body.set('body', kweetBody);
+    const newUrl = this.authUrl + 'kweet';
+    return this.http.post<Kweet>(newUrl, body.toString(), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      withCredentials: true
+    });
+  }
+
   getKweets(userName: string): Observable<Kweet[]> {
     // return of(ACCOUNTS);
-    const newUrl = this.accountUrl + '/' + userName + '/kweets';
+    const newUrl = this.accountUrl + userName + '/kweets';
     // console.log(newUrl);
     return this.http.get<Kweet[]>(newUrl, {withCredentials: true});
   }
@@ -40,7 +52,7 @@ export class AccountService {
   getFollowingKweets(): Observable<Kweet[]> {
     return this.getLoggedInRequest()
       .flatMap(acc => {
-        const newUrl = this.accountUrl + '/' + acc.userName + '/following/kweets';
+        const newUrl = this.accountUrl + acc.userName + '/following/kweets';
         return this.http.get<Kweet[]>(newUrl, {withCredentials: true});
       });
   }

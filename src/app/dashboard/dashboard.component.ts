@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Kweet} from '../_domain/kweet';
 import {AccountService} from '../_service/account.service';
 import {ActivatedRoute} from '@angular/router';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +10,10 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  loading = false;
+  kweetForm = new FormGroup({
+    body: new FormControl()
+  });
   kweets: Kweet[];
   selectedKweet: Kweet;
 
@@ -17,6 +22,21 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getKweets();
+  }
+
+  postKweet(): void {
+    this.loading = true;
+    this.accountService.postKweet(this.kweetForm.get('body').value)
+      .subscribe(
+        data => {
+          console.log('Kweet has been sent');
+          this.loading = false;
+        },
+        error => {
+          // TODO robkor: show error notification
+          this.loading = false;
+        }
+      );
   }
 
   onSelect(kweet: Kweet): void {

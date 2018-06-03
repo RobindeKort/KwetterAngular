@@ -37,7 +37,15 @@ export class AccountComponent implements OnInit, OnDestroy {
   getKweets(): void {
     this.accountService.getKweets(this.userName)
       .subscribe(kweets => {
-        this.kweets = kweets;
+        this.kweets = kweets.sort((a, b) => {
+          if (b.datePosted < a.datePosted) {
+            return -1;
+          } else if (b.datePosted > a.datePosted) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
         if (kweets === null) {
           // TODO robkor: handle this
         }
