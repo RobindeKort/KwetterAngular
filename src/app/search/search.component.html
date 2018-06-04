@@ -1,0 +1,8 @@
+<h2>Search results for "{{query}}"</h2>
+<ul class="kweets">
+  <li *ngFor="let kweet of kweets"
+      [class.selected]="kweet === selectedKweet"
+      (click)="onSelectKweet(kweet)">
+    <span class="badge">{{kweet.datePosted}}</span>{{kweet.body}}
+  </li>
+</ul>

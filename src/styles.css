@@ -11,6 +11,7 @@ h2, h3 {
 }
 body {
   margin: 2em;
+  padding-top: 3rem;
 }
 body, input[text], button {
   color: #888;
@@ -19,4 +20,70 @@ body, input[text], button {
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
+}
+/* robkor additions */
+.accounts{
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 5em;
+}
+.accounts li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  margin: .5em;
+  height: 1.6em;
+  border-radius: 4px;
+}
+.accounts li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+.selected {
+  background-color: #CFD8DC !important;
+  color: white;
+}
+.kweets {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 50em;
+}
+.kweets li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  margin: .5em;
+  height: 1.6em;
+  border-radius: 4px;
+}
+.kweets li.selected:hover {
+  background-color: #BBD8DC !important;
+  color: white;
+}
+.kweets li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+.kweets .text {
+  position: relative;
+  top: -3px;
+}
+.kweets .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  background-color: #607D8B;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
 }

@@ -18,16 +18,21 @@ export class AccountService {
   constructor(private http: HttpClient) {
   }
 
-  private getLoggedInRequest(): Observable<Account> {
+  getLoggedIn(): Observable<Account> {
     return this.http.get<Account>(this.authUrl, {withCredentials: true});
   }
 
   updateLoggedIn(): void {
-    this.getLoggedInRequest()
+    this.getLoggedIn()
       .subscribe(
         data => this.loggedInAccount = data,
         error => this.loggedInAccount = null
       );
+  }
+
+  getAccount(userName: string): Observable<Account> {
+    const newUrl = this.accountUrl + userName;
+    return this.http.get<Account>(newUrl);
   }
 
   postKweet(kweetBody: string): Observable<Kweet> {
@@ -46,14 +51,21 @@ export class AccountService {
     // return of(ACCOUNTS);
     const newUrl = this.accountUrl + userName + '/kweets';
     // console.log(newUrl);
-    return this.http.get<Kweet[]>(newUrl, {withCredentials: true});
+    return this.http.get<Kweet[]>(newUrl);
   }
 
-  getFollowingKweets(): Observable<Kweet[]> {
-    return this.getLoggedInRequest()
-      .flatMap(acc => {
-        const newUrl = this.accountUrl + acc.userName + '/following/kweets';
-        return this.http.get<Kweet[]>(newUrl, {withCredentials: true});
-      });
+  getFollowingKweets(userName: string): Observable<Kweet[]> {
+    const newUrl = this.accountUrl + userName + '/following/kweets';
+    return this.http.get<Kweet[]>(newUrl);
+  }
+
+  getFollowing(userName: string): Observable<Account[]> {
+    const newUrl = this.accountUrl + userName + '/following';
+    return this.http.get<Account[]>(newUrl);
+  }
+
+  getFollowedBy(userName: string): Observable<Account[]> {
+    const newUrl = this.accountUrl + userName + '/followedBy';
+    return this.http.get<Account[]>(newUrl);
   }
 }

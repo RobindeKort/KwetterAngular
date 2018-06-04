@@ -24,6 +24,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.accountService.getLoggedIn()
+      .subscribe(
+        account => this.router.navigateByUrl('/dashboard'),
+        error => { /* do nothing */ }
+        );
   }
 
   login() {

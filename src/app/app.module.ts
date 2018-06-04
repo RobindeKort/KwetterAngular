@@ -13,6 +13,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {LoginComponent} from './login/login.component';
 import {AuthenticationService} from './_service/authentication.service';
 import {LogoutComponent} from './logout/logout.component';
+import {SearchService} from './_service/search.service';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import {LogoutComponent} from './logout/logout.component';
     AccountComponent,
     DashboardComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import {LogoutComponent} from './logout/logout.component';
   providers: [
     CookieService,
     AccountService,
-    AuthenticationService
+    AuthenticationService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })

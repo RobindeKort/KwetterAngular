@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {Account} from '../_domain/account';
 import {Kweet} from '../_domain/kweet';
 import {AccountService} from '../_service/account.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
@@ -10,18 +11,55 @@ import {FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  loading = false;
-  kweetForm = new FormGroup({
+  loggedInAccount: Account = new Account('', '', '');
+  following: Account[];
+  followedBy: Account[];
+  kweetForm: FormGroup = new FormGroup({
     body: new FormControl()
   });
+  loading: Boolean = false;
   kweets: Kweet[];
   selectedKweet: Kweet;
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService,
+              private router: Router) {
   }
 
   ngOnInit() {
-    this.getKweets();
+    this.accountService.getLoggedIn()
+      .subscribe(
+        data => {
+          this.loggedInAccount = data;
+          this.getFollowing();
+          this.getFollowedBy();
+          this.getKweets();
+        },
+        error => this.router.navigateByUrl('/')
+      );
+  }
+
+  getFollowing(): void {
+    this.accountService.getFollowing(this.loggedInAccount.userName)
+      .subscribe(following => {
+        this.following = following;
+        if (following === null) {
+          // TODO robkor: handle this
+        }
+      });
+  }
+
+  getFollowedBy(): void {
+    this.accountService.getFollowedBy(this.loggedInAccount.userName)
+      .subscribe(followedBy => {
+        this.followedBy = followedBy;
+        if (followedBy === null) {
+          // TODO robkor: handle this
+        }
+      });
+  }
+
+  onSelectAccount(account: Account): void {
+    this.router.navigateByUrl('/users/' + account.userName);
   }
 
   postKweet(): void {
@@ -39,13 +77,9 @@ export class DashboardComponent implements OnInit {
       );
   }
 
-  onSelect(kweet: Kweet): void {
-    this.selectedKweet = kweet;
-  }
-
   getKweets(): void {
-    // const userName = this.accountService.loggedInAccount.userName;
-    this.accountService.getFollowingKweets()
+    // const userName = this.accountService.account.userName;
+    this.accountService.getFollowingKweets(this.loggedInAccount.userName)
       .subscribe(kweets => {
         this.kweets = kweets.sort((a, b) => {
           if (b.datePosted < a.datePosted) {
@@ -60,5 +94,9 @@ export class DashboardComponent implements OnInit {
           // TODO robkor: handle this
         }
       });
+  }
+
+  onSelectKweet(kweet: Kweet): void {
+    this.selectedKweet = kweet;
   }
 }
