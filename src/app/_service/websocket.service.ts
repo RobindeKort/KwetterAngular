@@ -19,7 +19,7 @@ export class WebsocketService {
     return this.subject;
   }
 
-  public create(url): Subject<MessageEvent> {
+  private create(url): Subject<MessageEvent> {
     const ws = new WebSocket(url);
 
     const observable = Observable.create(

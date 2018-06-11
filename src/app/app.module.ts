@@ -15,6 +15,8 @@ import {AuthenticationService} from './_service/authentication.service';
 import {LogoutComponent} from './logout/logout.component';
 import {SearchService} from './_service/search.service';
 import { SearchComponent } from './search/search.component';
+import {WebsocketService} from './_service/websocket.service';
+import {TimelineService} from './_service/timeline.service';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { SearchComponent } from './search/search.component';
     CookieService,
     AccountService,
     AuthenticationService,
-    SearchService
+    SearchService,
+    TimelineService,
+    WebsocketService
   ],
   bootstrap: [AppComponent]
 })

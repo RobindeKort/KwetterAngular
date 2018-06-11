@@ -9,7 +9,6 @@ import {Account} from '../_domain/account';
 import {ACCOUNTS} from '../_domain/mock-accounts';
 import {Kweet} from '../_domain/kweet';
 import {WebsocketService} from './websocket.service';
-import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class AccountService {
@@ -17,16 +16,9 @@ export class AccountService {
 
   private authUrl = 'http://localhost:8080/Kwetter/api/auth/';
   private accountUrl = 'http://localhost:8080/Kwetter/api/users/';
-  public messages: Subject<Kweet>;
 
   constructor(private http: HttpClient,
               private wsService: WebsocketService) {
-    this.messages = <Subject<Kweet>>this.wsService
-      .connect('ws://localhost:8080/Kwetter/api/kweetEndpoint')
-      .map((res: MessageEvent): Kweet => {
-        const data = JSON.parse(res.data);
-        return data as Kweet;
-      });
   }
 
   getLoggedIn(): Observable<Account> {

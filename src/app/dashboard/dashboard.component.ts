@@ -4,6 +4,7 @@ import {Kweet} from '../_domain/kweet';
 import {AccountService} from '../_service/account.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
+import {TimelineService} from '../_service/timeline.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
   selectedKweet: Kweet;
 
   constructor(private accountService: AccountService,
+              private timelineService: TimelineService,
               private router: Router) {
   }
 
@@ -33,6 +35,7 @@ export class DashboardComponent implements OnInit {
           this.getFollowing();
           this.getFollowedBy();
           this.getKweets();
+          this.subscribeKweets();
         },
         error => this.router.navigateByUrl('/')
       );
@@ -67,6 +70,7 @@ export class DashboardComponent implements OnInit {
     this.accountService.postKweet(this.kweetForm.get('body').value)
       .subscribe(
         data => {
+          this.timelineService.messages.next(data);
           console.log('Kweet has been sent');
           this.loading = false;
         },
@@ -94,6 +98,15 @@ export class DashboardComponent implements OnInit {
           // TODO robkor: handle this
         }
       });
+  }
+
+  subscribeKweets(): void {
+    this.timelineService.subscribe(this.loggedInAccount.userName);
+    this.timelineService.messages.subscribe(
+      msg => {
+        this.kweets.unshift(msg);
+      }
+    );
   }
 
   onSelectKweet(kweet: Kweet): void {
